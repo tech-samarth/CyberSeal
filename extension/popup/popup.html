@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberSeal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="cs-header">
+      <div class="cs-logo">
+        <div class="cs-shield">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L4 5v6c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V5L12 2z" fill="url(#shieldGrad)" stroke="url(#shieldStroke)" stroke-width="0.5"/>
+            <path d="M9 12l2 2 4-4" stroke="#0a0f1e" stroke-width="1.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="shieldGrad" x1="12" y1="2" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#00ffc8"/>
+                <stop offset="100%" stop-color="#0099ff"/>
+              </linearGradient>
+              <linearGradient id="shieldStroke" x1="4" y1="2" x2="20" y2="23" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#00ffc8" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#0099ff" stop-opacity="0.3"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="cs-brand">
+          <span class="cs-name">CyberSeal</span>
+          <span class="cs-version">v1.0 · Forensic Edition</span>
+        </div>
+      </div>
+      <div class="cs-status-badge" id="statusBadge">
+        <span class="cs-dot"></span>
+        <span id="statusText">Scanning...</span>
+      </div>
+    </header>
+
+    <!-- Platform Indicator -->
+    <div class="cs-platform-bar" id="platformBar">
+      <div class="cs-platform-icon" id="platformIcon">?</div>
+      <div class="cs-platform-info">
+        <div class="cs-platform-name" id="platformName">Detecting platform...</div>
+        <div class="cs-platform-url" id="platformUrl">—</div>
+      </div>
+      <div class="cs-platform-shield" id="platformShield">
+        <span>READY</span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <nav class="cs-tabs">
+      <button class="cs-tab active" data-tab="capture">Capture</button>
+      <button class="cs-tab" data-tab="vault">Vault</button>
+      <button class="cs-tab" data-tab="report">Report</button>
+      <button class="cs-tab" data-tab="chain">Chain</button>
+    </nav>
+
+    <!-- ===== TAB: CAPTURE ===== -->
+    <div class="cs-panel active" id="tab-capture">
+      
+      <!-- Panic Button -->
+      <div class="cs-panic-zone">
+        <button class="cs-panic-btn" id="panicBtn">
+          <div class="cs-panic-inner">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L4 5v6c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V5L12 2z" fill="rgba(0,255,200,0.15)" stroke="#00ffc8" stroke-width="1"/>
+              <circle cx="12" cy="12" r="3" fill="#00ffc8"/>
+            </svg>
+            <span>CAPTURE EVIDENCE</span>
+          </div>
+          <div class="cs-panic-ring r1"></div>
+          <div class="cs-panic-ring r2"></div>
+        </button>
+        <div class="cs-panic-label">One-click tamper-proof capture</div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="cs-stats-row">
+        <div class="cs-stat">
+          <div class="cs-stat-val" id="statTotal">0</div>
+          <div class="cs-stat-label">Captured</div>
+        </div>
+        <div class="cs-stat">
+          <div class="cs-stat-val" id="statChained">0</div>
+          <div class="cs-stat-label">On-chain</div>
+        </div>
+        <div class="cs-stat">
+          <div class="cs-stat-val" id="statSynced">0</div>
+          <div class="cs-stat-label">Cloud Synced</div>
+        </div>
+      </div>
+
+      <!-- Last Capture -->
+      <div class="cs-last-capture" id="lastCapture" style="display:none">
+        <div class="cs-lc-header">
+          <span class="cs-lc-icon">⛓</span>
+          <span class="cs-lc-title">Latest Evidence</span>
+          <span class="cs-lc-status verified">VERIFIED</span>
+        </div>
+        <div class="cs-lc-id" id="lastCaptureId">—</div>
+        <div class="cs-lc-hash" id="lastCaptureHash">SHA-256: —</div>
+        <div class="cs-lc-chain" id="lastCaptureChain">—</div>
+      </div>
+
+      <!-- Supported Platforms -->
+      <div class="cs-platforms-row">
+        <div class="cs-plat-chip active-plat" data-platform="instagram">IG</div>
+        <div class="cs-plat-chip active-plat" data-platform="whatsapp">WA</div>
+        <div class="cs-plat-chip active-plat" data-platform="discord">DC</div>
+        <div class="cs-plat-chip active-plat" data-platform="twitter">X</div>
+        <div class="cs-plat-chip active-plat" data-platform="telegram">TG</div>
+        <div class="cs-plat-chip active-plat" data-platform="facebook">FB</div>
+        <div class="cs-plat-chip active-plat" data-platform="reddit">RD</div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: VAULT ===== -->
+    <div class="cs-panel" id="tab-vault">
+      <div class="cs-vault-header">
+        <div class="cs-vault-title">
+          <span class="cs-vault-icon">🔐</span> Evidence Vault
+        </div>
+        <button class="cs-btn-sm" id="refreshVault">↻ Refresh</button>
+      </div>
+      
+      <!-- Search/Filter -->
+      <div class="cs-search-bar">
+        <input type="text" id="vaultSearch" class="cs-input" placeholder="Search by ID, platform..." />
+        <select id="vaultFilter" class="cs-select">
+          <option value="">All Platforms</option>
+          <option value="instagram">Instagram</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="discord">Discord</option>
+          <option value="twitter">Twitter/X</option>
+          <option value="telegram">Telegram</option>
+          <option value="facebook">Facebook</option>
+          <option value="reddit">Reddit</option>
+        </select>
+      </div>
+
+      <div class="cs-evidence-list" id="evidenceList">
+        <div class="cs-empty-state">
+          <div class="cs-empty-icon">🛡️</div>
+          <div class="cs-empty-text">No evidence captured yet</div>
+          <div class="cs-empty-sub">Use the Capture tab to start</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TAB: REPORT ===== -->
+    <div class="cs-panel" id="tab-report">
+      <div class="cs-report-header">
+        <div class="cs-report-title">
+          <span>📋</span> Legal Report Generator
+        </div>
+      </div>
+
+      <div class="cs-report-options">
+        <label class="cs-checkbox-row">
+          <input type="checkbox" id="incScreenshots" checked /> Include Screenshots
+        </label>
+        <label class="cs-checkbox-row">
+          <input type="checkbox" id="incMetadata" checked /> Include Metadata
+        </label>
+        <label class="cs-checkbox-row">
+          <input type="checkbox" id="incHashes" checked /> Include Hash Chain
+        </label>
+        <label class="cs-checkbox-row">
+          <input type="checkbox" id="incBlockchain" checked /> Include Blockchain Proof
+        </label>
+        <label class="cs-checkbox-row">
+          <input type="checkbox" id="incCustody" checked /> Include Chain of Custody
+        </label>
+        <label class="cs-checkbox-row">
+          <input type="checkbox" id="incTimeline" checked /> Include Incident Timeline
+        </label>
+        <label class="cs-checkbox-row">
+          <input type="checkbox" id="incAI" checked /> AI Incident Summary
+        </label>
+      </div>
+
+      <div class="cs-report-meta">
+        <input type="text" class="cs-input" id="reportVictimName" placeholder="Victim name (optional)" />
+        <input type="text" class="cs-input" id="reportCaseNum" placeholder="Case / reference number" />
+        <textarea class="cs-input cs-textarea" id="reportNotes" placeholder="Additional notes for the report..."></textarea>
+      </div>
+
+      <button class="cs-generate-btn" id="generateReport">
+        <span class="cs-generate-icon">⚖️</span>
+        Generate Court-Ready PDF Report
+      </button>
+
+      <div class="cs-report-note">
+        Report format compliant with digital evidence standards.<br/>
+        <span class="cs-green">Generated by CyberSeal Digital Evidence System</span>
+      </div>
+    </div>
+
+    <!-- ===== TAB: CHAIN OF CUSTODY ===== -->
+    <div class="cs-panel" id="tab-chain">
+      <div class="cs-chain-header">
+        <span>🔗</span> Chain of Custody
+      </div>
+
+      <div class="cs-chain-select-row">
+        <select id="custodyEvidenceSelect" class="cs-select cs-select-full">
+          <option value="">Select Evidence ID...</option>
+        </select>
+      </div>
+
+      <div class="cs-chain-verify-row">
+        <button class="cs-verify-btn" id="verifyIntegrity">
+          🔍 Verify Integrity
+        </button>
+        <div class="cs-integrity-badge" id="integrityBadge" style="display:none">
+          <span id="integrityIcon">✓</span>
+          <span id="integrityText">VERIFIED</span>
+        </div>
+      </div>
+
+      <div class="cs-custody-log" id="custodyLog">
+        <div class="cs-custody-empty">Select an evidence ID to view access log</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="cs-loading" id="loadingOverlay" style="display:none">
+    <div class="cs-loading-inner">
+      <div class="cs-loading-shield">🛡️</div>
+      <div class="cs-loading-text" id="loadingText">Processing evidence...</div>
+      <div class="cs-loading-bar">
+        <div class="cs-loading-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="cs-toast" id="globalToast"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

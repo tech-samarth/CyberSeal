@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "CyberSeal - Tamper-Proof Evidence Capture",
+  "version": "1.0.0",
+  "description": "Cryptographically secure cyberbullying evidence capture with blockchain proof and legal-grade reports.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs",
+    "notifications",
+    "clipboardWrite",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://*.instagram.com/*",
+    "https://*.whatsapp.com/*",
+    "https://*.discord.com/*",
+    "https://*.twitter.com/*",
+    "https://x.com/*",
+    "https://*.telegram.org/*",
+    "https://*.facebook.com/*",
+    "https://*.reddit.com/*",
+    "https://*.web.telegram.org/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.instagram.com/*",
+        "https://*.whatsapp.com/*",
+        "https://*.discord.com/*",
+        "https://*.twitter.com/*",
+        "https://x.com/*",
+        "https://web.telegram.org/*",
+        "https://*.facebook.com/*",
+        "https://*.reddit.com/*"
+      ],
+      "js": ["content/injector.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
